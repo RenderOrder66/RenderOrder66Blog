@@ -3,7 +3,7 @@ layout: post
 title: "Aesprite Beginners Guide"
 subtitle: "Leave knowing all the basics you need to start making beautiful Pixel Art!"
 date: 2019-12-03 19:40:00 +1000
-background: '/img/posts/01.jpg'
+background: ''
 author: 'Corey Underdown'
 ---
 
@@ -40,7 +40,9 @@ Well you can! The sprite preview window is your ticket to making sure your sprit
 
 Make sure you keep your Preview zoomed out enough that you get a clear idea of what your sprite looks like at it's intended size. You'll find it can look drastically different zoomed in and zoomed out. 
 
-### Colour Palette
+A few neat tricks with this window. If you select this button ![Recenter](../imgs/blogs/aseprite_beginner/recenter.png) it will center your sprite in the preview and if you select this button ![Play](../img/blogs/../../imgs/blogs/aseprite_beginner/play.png) you can preview your animation, but we're not covering animation today, but we'll have a blog on that soon! 
+
+## Colour Palette
 
 Time to switch gears and look colour for a bit. The Sprite Palette is where you can hold all your colours. 
 
