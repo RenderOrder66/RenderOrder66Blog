@@ -44,6 +44,31 @@ A few neat tricks with this window. If you select this button ![Recenter](../img
 
 ## Colour Palette
 
-Time to switch gears and look colour for a bit. The Sprite Palette is where you can hold all your colours. 
+Time to switch gears and look colour for a bit. The Colour Palette can be used to select all the colours you wish to use for that particular piece of work. This is by no means the only colours you can use though! You're still free to use the colour wheel which we'll cover next.
+
+When you start a new sprite, you'll get a default colour palette. They can be any size, you've just got to drag the || icon to change it like below:
 
 ![Colour Palette Resizing](../imgs/blogs/aseprite_beginner/changing_palette_size.gif)
+
+If you don't want to make your own palette, there's plenty to choose from as defaults. 
+
+![Palette Presets](../imgs/blogs/aseprite_beginner/palette_defaults.png)
+
+## Colour Selection
+
+## Tools
+
+There's heaps of useful tools for you to use in Aseprite, so let's start going over them. Tools are found on the right by default and look like this
+
+![Tools](../imgs/blogs/aseprite_beginner/tools.png)
+
+We'll go through them from top to bottom
+
+### Selection
+
+![Selection Tools](../imgs/blogs/aseprite_beginner/selection_tools.png)
+
+As the name suggests, all these tools are about selecting parts of the canvas. The first and second selection allow you to select a rectangle of space and a circle of space respectively. 
+
+## Layers
+
