@@ -2,8 +2,8 @@
 layout: post
 title: "Aseprite Plugins"
 subtitle: "Leave knowing all the basics you need to start making beautiful Pixel Art!"
-date: 2019-23-03 19:55:00 +1000
-background: '../imgs/blogs/aseprite_plugin/background.png'
+date: 2020-03-23 19:55:00 +1000
+background: '/imgs/blogs/aseprite_plugin/background.png'
 author: 'Corey Underdown'
 ---
 
@@ -11,11 +11,11 @@ Aseprite is an incredibly powerful Pixel Art tool on it's own, but did you know 
 
 Once we're done, our plugin will look like this:
 
-![Plugin](../imgs/blogs/aseprite_plugin/plugin.png)
+![Plugin](/imgs/blogs/aseprite_plugin/plugin.png)
 
 And will generate us a palette that looks like this:
 
-![Palette](../imgs/blogs/aseprite_plugin/palette.png)
+![Palette](/imgs/blogs/aseprite_plugin/palette.png)
 
 First we need to know how to install and run scripts. This is pretty simple in Aseprite. 
 

@@ -4,6 +4,7 @@ description: All things Gamedev
 author: Anthony Reed & Corey Underdown
 baseurl: ""
 url: "https://renderorder66.com"
+future: true
 
 # Social Profiles
 twitter_username:
