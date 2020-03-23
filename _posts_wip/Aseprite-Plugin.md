@@ -139,7 +139,7 @@ pal:setColor(#colors-1, Color{r=0, g=0, b=0})
 spr:setPalette(pal);
 ```
 
-Again, we're using the Aseprite Plugin API here to create a new Palette and for the functions for setting the colours of each palette section. Last, we set the active sprites palette to this newly created on.
+Again, we're using the Aseprite Plugin API here to create a new Palette and for the functions for setting the colours of each palette section. Last, we set the active sprites palette to this newly created one.
 
 Now we just want to call the generate `setColourPallete` like so and we're done:
 
