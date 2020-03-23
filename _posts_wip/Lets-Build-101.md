@@ -5,7 +5,7 @@ This is the first in a series of tutorials where we will design and build the ba
 
 A few things before we start on this adventure, what will be learning about? Well the various systems make up the general rts genre, Unity engine and software design patterns and architecture, with a focus on S.O.L.I.D principles. A more concise explanation on S.O.L.I.D will come at a later date, but we will go over the importance of following design principles for your projects whether personal or professional, the pros and cons to this design principle and how they apply to games. And as you might have guessed we will be building these systems in Unitys standard mono behaviour OOP way, but may visit on a DOTS hybrid approach when it comes to the performance tutorials.
 
-We will start by setting up the project, you can either clone the repo <enter repo here> or follow along. I have created this in <insert unity version> as a hdrp project, for the ground I have just added a plane for now, and set up this character prefab made out of a capsule and a cube for 'eyes'. It's always good to have a point of reference for the front of the character. We will assign the navmeshagent component to our character and bake the navmesh surface on our ground. For now this is all we need so let's add a script to our scene to control our character to a target destination.
+We will start by setting up the project, you can either clone the repo https://github.com/RenderOrder66/RtsBasics.git or follow along. I have created this in Unity version **2019.3.6f1** as a hdrp project, for the ground I have just added a plane for now, and set up this character prefab made out of a capsule and a cube for 'eyes'. It's always good to have a point of reference for the front of the character. We will assign the navmeshagent component to our character and bake the navmesh surface on our ground. For now this is all we need so let's add a script to our scene to control our character to a target destination.
 
     public class MousePointToDestination : MonoBehaviour
     {
@@ -51,7 +51,7 @@ For now we will just define an interface to provide us with what we require for 
 
     public interface IPhysicsControl
     {
-        bool ScreenPointRayCast(Ray ray, out RaycastHit info, float maxDistance);
+        bool RayCastHit(Ray ray, out RaycastHit info, float maxDistance);
     }
 
 And now we will abstract away our physics implementation, and for now we will just use the parameters that the unity method required.
@@ -62,9 +62,9 @@ And now we will abstract away our physics implementation, and for now we will ju
             Physics.Raycast(ray, out info, maxDistance);
     }
 
-    public class InputController : MonoBehaviour, IUserInput
+    public class MouseInputController : MonoBehaviour, IMouseUserInput
     {
-        public bool SelectionButtonUp() => Input.GetMouseButtonUp(0);
+        public bool SelectionButtonUp() => Input.GetMouseButtonUp(1);
         public Vector3 MousePosition() => Input.mousePosition;
     }
 
@@ -83,12 +83,12 @@ So we will make that bare minimum of the input controller for now, but we will c
     public class GameInputController : MonoBehaviour
     {
         public VectorEvent onPress;
-        IMouseInput mouseInput;
+        IMouseUserInput mouseInput;
 
         void Awake()
         {
             var components = GetComponents<MonoBehaviour>();
-            mouseInput = (IMouseInput)components.FirstOrDefault(x => x is IMouseInput);
+            mouseInput = (IMouseUserInput)components.FirstOrDefault(x => x is IMouseUserInput);
         }
 
         void Update()
@@ -98,7 +98,7 @@ So we will make that bare minimum of the input controller for now, but we will c
         }
     }
 
-Now all this script does is waits for some kind of signal from the mouse input interface and triggers the appropriate event which in our case is the `onPress`. We are going to clean this up later but just to get things working we will pass the mouse position through the event, this isn’t a good idea to pass the position out from the controller because what if later on we add the ability to attack or gather resources, or even non character related actions such as set a deployment point when a building creates new units. These kinds of actions should be handled by a factory like mechanism. Another note with this controller script you may of noticed is we are now starting the practice of the **D** in S.O.L.I.D principles *dependency injection / dependency inversion* we are supplying the abstraction of `IMouseInput` through the start method by finding the type of `IMouseInput` in a list of components. This is called property injection, which is not an overly common place in application development which mostly uses constructor injection, but that’s not possible through `MonoBehaviour` as unity handles the initialization of  `MonoBehaviour` through the `AddComponent<T>` method.
+Now all this script does is waits for some kind of signal from the mouse input interface and triggers the appropriate event which in our case is the `onPress`. We are going to clean this up later but just to get things working we will pass the mouse position through the event, this isn’t a good idea to pass the position out from the controller because what if later on we add the ability to attack or gather resources, or even non character related actions such as set a deployment point when a building creates new units. These kinds of actions should be handled by a factory like mechanism. Another note with this controller script you may of noticed is we are now starting the practice of the **D** in S.O.L.I.D principles *dependency injection / dependency inversion* we are supplying the abstraction of `IMouseUserInput` through the start method by finding the type of `IMouseUserInput` in a list of components. This is called property injection, which is not an overly common place in application development which mostly uses constructor injection, but that’s not possible through `MonoBehaviour` as unity handles the initialization of  `MonoBehaviour` through the `AddComponent<T>` method.
 
     public class MousePointToDestination : MonoBehaviour
     {
