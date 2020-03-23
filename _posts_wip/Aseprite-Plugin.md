@@ -70,6 +70,141 @@ do
         return app.alert(shades);
     end
 end
-``
+```
 
 First we're calling `showDialogForColour()` which will display the dialog and wait for the OK to be hit. Then we'll check if the element with the id `ok` which was the OK button is set, and if so, we'll read the value of `number_of_shades` from the object which was set from the colour slider. Finally, we'll alert this out to see the effect. Try setting different values for the shade count and see if change.
+
+Two parts left to go. We've got to generate the new colours now and then put them into the palette. To generate the colours, we'll take the hue and saturation of the base colour, then start at 1 for the lightness and reduce it each iteration until we hit 0. To determine how much lightness we reduce each colour by, we divide 1 by the selected amount of shades. This is because lightness goes from 0 (black) to 1 (white). We'll start really bright and get darker, creating our shade gradient.
+
+```
+function generateColors(baseColour, numShades)
+    local colors = {}
+	
+	local minusAmount = 1/numShades;
+	
+    for light=1,0,-minusAmount do
+        local newCol = Color{h=baseColour.hslHue, s=baseColour.hslSaturation, l=light}
+        table.insert(colors, newCol)
+    end
+
+    return colors
+end
+```
+
+For the last function, we want to add the generated colours from `generateColors` to our palette. Here's what it looks like:
+
+```
+function setColourPallete(baseColor, numShades)
+    
+    local colors = generateColors(baseColor, numShades)
+	
+	local spr = app.activeSprite
+	if not spr then
+	  return app.alert("There is no active sprite")
+	end
+	
+	local pal = Palette(#colors)
+
+    for i=1,#colors-1 do
+		pal:setColor(i-1, colors[i])
+    end
+	pal:setColor(#colors-1, Color{r=0, g=0, b=0})
+
+	spr:setPalette(pal);
+    
+end
+```
+
+Few things to point out here. We generate the colours in this function as we're about to use them with `local colors = generateColors(baseColor, numShades)`. But more interesting than that is the next part:
+
+```
+local spr = app.activeSprite
+if not spr then
+    return app.alert("There is no active sprite")
+end
+```
+
+This is a check to make sure we have a sprite open before we continue. If you run the script and your don't have a sprite open, then there's no access to a palette and this will fail. `app.activeSprite` is part of the Aseprite Plugins API.
+
+The last part we just grab all our generated colours, create a new palette and insert them in.
+
+```
+local pal = Palette(#colors)
+
+for i=1,#colors-1 do
+    pal:setColor(i-1, colors[i])
+end
+pal:setColor(#colors-1, Color{r=0, g=0, b=0})
+
+spr:setPalette(pal);
+```
+
+Again, we're using the Aseprite Plugin API here to create a new Palette and for the functions for setting the colours of each palette section. Last, we set the active sprites palette to this newly created on.
+
+Now we just want to call the generate `setColourPallete` like so and we're done:
+
+```
+do
+    local color = showDialogForColor()
+    if color.ok then
+        setColourPallete(color.color, color.number_of_shades);
+    end
+end
+```
+
+Now if we run it, the process will look just like we showed at the top. This tool is super helpful for shading and making highlights on your art, I'd highly suggest it. If you make any modifications to the script, we'd also love to see them. Thanks for following along today!
+
+Here's the full script:
+
+```
+function showDialogForColor()
+    
+    return Dialog():color{ id="color", label="Choose a colour", color=Color{r=0,g=0,b=0,a=255} }
+	:slider{ id="number_of_shades", label="Number of shades to generate:", min=1, max=20, value=10 }
+    :button{ id="ok", text="OK" }
+    :button{ id="cancel", text="Cancel" }
+    :show().data;
+
+end
+
+function generateColors(color, numShades)
+    local colors = {}
+	
+	local minusAmount = 1/numShades;
+	
+    for light=1,0,-minusAmount do
+        local newCol = Color{h=color.hslHue, s=color.hslSaturation, l=light}
+        table.insert(colors, newCol)
+    end
+
+    return colors
+end
+
+function setColourPallete(baseColor, numShades)
+    
+    local colors = generateColors(baseColor, numShades)
+	
+	local spr = app.activeSprite
+	if not spr then
+	  return app.alert("There is no active sprite")
+	end
+	
+	local pal = Palette(#colors)
+
+    for i=1,#colors-1 do
+		pal:setColor(i-1, colors[i])
+    end
+	pal:setColor(#colors-1, Color{r=0, g=0, b=0})
+
+	spr:setPalette(pal);
+    
+end
+
+do
+    local color = showDialogForColor()
+    if color.ok then
+        setColourPallete(color.color, color.number_of_shades);
+    end
+end
+```
+
