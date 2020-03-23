@@ -3,7 +3,7 @@ layout: post
 title: "Aseprite Plugins"
 subtitle: "Leave knowing all the basics you need to start making beautiful Pixel Art!"
 date: 2019-23-03 19:55:00 +1000
-background: ''
+background: '../imgs/blogs/aseprite_plugin/background.png'
 author: 'Corey Underdown'
 ---
 
