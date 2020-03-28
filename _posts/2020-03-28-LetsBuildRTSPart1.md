@@ -2,7 +2,7 @@
 layout: post
 title: "Let's build an RTS - Part 1: The Basics"
 subtitle: "A 101 introduction to building an RTS"
-date: 2020-03-24 19:40:00 +1000
+date: 2020-03-28 13:25:00 +1000
 background: '/imgs/blogs/lets_build/101/background.png'
 author: 'Anthony Reed'
 ---
