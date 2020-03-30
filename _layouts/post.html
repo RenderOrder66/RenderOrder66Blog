@@ -58,10 +58,10 @@ layout: default
       <div class="col-lg-8 col-md-10 mx-auto">
         <div id="hyvor-talk-view"></div>
         <script type="text/javascript">
-            var HYVOR_TALK_WEBSITE = 357; // DO NOT CHANGE THIS
+            var HYVOR_TALK_WEBSITE = 358; // DO NOT CHANGE THIS
             var HYVOR_TALK_CONFIG = {
-                url: window.location.href,
-                id: window.location.href
+                url: '{{ page.url | absolute_url }}',
+                id: '{{page.id}}'
             };
         </script>
         <script async type="text/javascript" src="//talk.hyvor.com/web-api/embed"></script>
