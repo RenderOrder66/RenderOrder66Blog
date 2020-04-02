@@ -40,3 +40,11 @@
     }
   }
 }
+
+.highlighter-rouge {
+  > div {
+    background: #efefef;
+    padding: 10px;
+    border-radius: 6px;
+  }
+}
